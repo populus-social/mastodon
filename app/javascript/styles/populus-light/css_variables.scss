@@ -1,0 +1,22 @@
+// Overrides mastodon/css_variables.scss's darken()/lighten()-derived values,
+// same reason mastodon-light needs this: those formulas assume a dark
+// $ui-base-color and produce washed-out results applied to a light one.
+@use 'sass:color';
+@use '../mastodon/variables' as *;
+@use 'variables' as *;
+@use '../mastodon/functions' as *;
+
+body {
+  --dropdown-border-color: #dedad3;
+  --dropdown-background-color: #ffffff;
+  --modal-border-color: #dedad3;
+  --modal-background-color: var(--background-color);
+  --background-border-color: #dedad3;
+  --background-color: #ffffff;
+  --background-color-tint: rgba(255, 255, 255, 80%);
+  --surface-variant-background-color: #f0ede8;
+  --surface-border-color: #dedad3;
+  --on-surface-color: #{color.adjust($ui-base-color, $alpha: -0.65)};
+  --input-placeholder-color: #{color.adjust($dark-text-color, $alpha: -0.5)};
+  --input-background-color: #{darken($ui-base-color, 6%)};
+}

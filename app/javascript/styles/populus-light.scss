@@ -1,0 +1,11 @@
+@use 'populus-light/variables';
+@use 'populus-light/css_variables';
+@use 'application';
+// mastodon-light's diff.scss patches components with hardcoded light-theme
+// assumptions ($white backgrounds on cards/modals, etc.) that plain variable
+// overrides can't reach. Reused as-is rather than duplicated: its literal
+// $white references match our own bg-surface (#ffffff) exactly, and every
+// $ui-*/$action-button-color/etc. reference resolves against whichever
+// variables.scss configured the shared module first — ours, per the load
+// order above.
+@use 'mastodon-light/diff';

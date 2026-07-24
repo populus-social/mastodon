@@ -15,7 +15,7 @@ Development happens on the `populus` branch, released under
 `populus-YYYY.MM.DD[-N]`-style tags. Here's what changed and when:
 
 *(none yet — this branch is currently unmodified upstream Mastodon at
-`v4.5.9`; modifications will be listed here as they land, task 613)*
+`v4.5.9`; modifications will be listed here as they land)*
 
 Full history for these changes is on the `populus` branch of this
 repository.

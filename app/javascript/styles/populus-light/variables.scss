@@ -1,0 +1,41 @@
+// populus.social light theme — variable overrides from populus-brandbook's
+// resolved tokens (dist/tokens.css, light block). Same override set
+// mastodon-light.scss configures, substituting our own palette.
+@use '../mastodon/variables' with (
+  $ui-base-color: #f9f7f4,
+  // bg-base
+  $ui-base-lighter-color: #dedad3,
+  // border
+  $ui-secondary-color: #242220,
+  // text-primary
+
+  $ui-highlight-color: #2d4f8a,
+  // brand
+  $ui-button-background-color: #ba6848,
+  // accent
+  $ui-button-focus-background-color: #943d25,
+  // accent-hover
+  $ui-button-secondary-color: #7c7870,
+  // text-secondary
+  $ui-button-secondary-border-color: #7c7870,
+  $ui-button-secondary-focus-color: #242220,
+  $ui-button-tertiary-color: #2d4f8a,
+  $ui-button-tertiary-border-color: #2d4f8a,
+
+  $primary-text-color: #242220,
+  $darker-text-color: #242220,
+  $lighter-text-color: #242220,
+  $highlight-text-color: #2d4f8a,
+  $dark-text-color: #494540,
+  $light-text-color: #494540,
+  $inverted-text-color: #242220,
+
+  $action-button-color: #494540,
+
+  $base-overlay-background: #ffffff,
+  // bg-surface
+
+  $success-green: #1a8a57,
+  $error-red: #b32828,
+  $warning-red: #d4b130
+);

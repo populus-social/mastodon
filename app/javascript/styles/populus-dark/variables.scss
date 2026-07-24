@@ -1,0 +1,42 @@
+// populus.social dark theme — variable overrides from populus-brandbook's
+// resolved tokens (dist/tokens.css, dark block). mastodon/css_variables.scss
+// derives its custom properties from these via darken()/lighten(), same as
+// it does for the default theme, so no css_variables override is needed
+// here the way the light theme requires one.
+@use '../mastodon/variables' with (
+  $ui-base-color: #0a0908,
+  // bg-base
+  $ui-base-lighter-color: #3c3a36,
+  // border
+  $ui-secondary-color: #a09c94,
+  // text-secondary
+
+  $ui-highlight-color: #6e8cc4,
+  // brand
+  $ui-button-background-color: #d49c88,
+  // accent
+  $ui-button-focus-background-color: #ba6848,
+  // accent-hover
+  $ui-button-secondary-color: #a09c94,
+  $ui-button-secondary-border-color: #a09c94,
+  $ui-button-secondary-focus-color: #f0ede8,
+  $ui-button-tertiary-color: #6e8cc4,
+  $ui-button-tertiary-border-color: #6e8cc4,
+
+  $primary-text-color: #f0ede8,
+  $darker-text-color: #f0ede8,
+  $lighter-text-color: #f0ede8,
+  $highlight-text-color: #6e8cc4,
+  $dark-text-color: #a09c94,
+  $light-text-color: #a09c94,
+  $inverted-text-color: #242220,
+
+  $action-button-color: #a09c94,
+
+  $base-overlay-background: #131210,
+  // bg-surface
+
+  $success-green: #2db87a,
+  $error-red: #d94f4f,
+  $warning-red: #d4b130
+);

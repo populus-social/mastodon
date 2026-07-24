@@ -7,15 +7,16 @@ you in line with the AGPL and our upstream-first development philosophy.
 - **Source code and build instructions:** branch [`populus`](../../tree/populus)
 - **Unmodified upstream mirror:** branch `upstream-main`, tracking
   [mastodon/mastodon](https://github.com/mastodon/mastodon)
-- **Current deployed release:** tag `v4.5.9` (pinned; no populus modifications yet)
+- **Current deployed release:** tag `populus-2026.07.24`, based on upstream `v4.5.9`
 
 ## Populus Modifications
 
 Development happens on the `populus` branch, released under
 `populus-YYYY.MM.DD[-N]`-style tags. Here's what changed and when:
 
-*(none yet — this branch is currently unmodified upstream Mastodon at
-`v4.5.9`; modifications will be listed here as they land)*
+- **`populus-2026.07.24`** — populus.social sign-in banner copy and an
+  invitation-only call to action; two new theme options, `populus-light`
+  and `populus-dark`, built from populus.social's own brand colors.
 
 Full history for these changes is on the `populus` branch of this
 repository.

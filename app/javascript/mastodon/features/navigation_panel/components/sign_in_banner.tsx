@@ -30,14 +30,14 @@ export const SignInBanner: React.FC = () => {
           <strong>
             <FormattedMessage
               id='sign_in_banner.mastodon_is'
-              defaultMessage="Mastodon is the best way to keep up with what's happening."
+              defaultMessage='A federated social platform that answers to its members, not an algorithm.'
             />
           </strong>
         </p>
         <p>
           <FormattedMessage
             id='sign_in_banner.follow_anyone'
-            defaultMessage='Follow anyone across the fediverse and see it all in chronological order. No algorithms, ads, or clickbait in sight.'
+            defaultMessage='Verify who you are once. Then operate under callsigns you chose, pseudonymously.'
           />
         </p>
         <a
@@ -71,8 +71,8 @@ export const SignInBanner: React.FC = () => {
         type='button'
       >
         <FormattedMessage
-          id='sign_in_banner.create_account'
-          defaultMessage='Create account'
+          id='sign_in_banner.request_invitation'
+          defaultMessage='Request an invitation'
         />
       </button>
     );
@@ -84,14 +84,14 @@ export const SignInBanner: React.FC = () => {
         <strong>
           <FormattedMessage
             id='sign_in_banner.mastodon_is'
-            defaultMessage="Mastodon is the best way to keep up with what's happening."
+            defaultMessage='A federated social platform that answers to its members, not an algorithm.'
           />
         </strong>
       </p>
       <p>
         <FormattedMessage
           id='sign_in_banner.follow_anyone'
-          defaultMessage='Follow anyone across the fediverse and see it all in chronological order. No algorithms, ads, or clickbait in sight.'
+          defaultMessage='Verify who you are once. Then operate under callsigns you chose, pseudonymously.'
         />
       </p>
       {signupButton}

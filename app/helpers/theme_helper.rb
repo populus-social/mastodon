@@ -4,8 +4,8 @@ module ThemeHelper
   def theme_style_tags(theme)
     if theme == 'system'
       ''.html_safe.tap do |tags|
-        tags << vite_stylesheet_tag('themes/mastodon-light', type: :virtual, media: 'not all and (prefers-color-scheme: dark)', crossorigin: 'anonymous')
-        tags << vite_stylesheet_tag('themes/default', type: :virtual, media: '(prefers-color-scheme: dark)', crossorigin: 'anonymous')
+        tags << vite_stylesheet_tag('themes/populus-light', type: :virtual, media: 'not all and (prefers-color-scheme: dark)', crossorigin: 'anonymous')
+        tags << vite_stylesheet_tag('themes/populus-dark', type: :virtual, media: '(prefers-color-scheme: dark)', crossorigin: 'anonymous')
       end
     else
       vite_stylesheet_tag "themes/#{theme}", type: :virtual, media: 'all', crossorigin: 'anonymous'
@@ -51,6 +51,6 @@ module ThemeHelper
   end
 
   def theme_color_for(theme)
-    theme == 'mastodon-light' ? Themes::THEME_COLORS[:light] : Themes::THEME_COLORS[:dark]
+    %w(mastodon-light populus-light).include?(theme) ? Themes::THEME_COLORS[:light] : Themes::THEME_COLORS[:dark]
   end
 end

@@ -9,15 +9,15 @@ RSpec.describe ThemeHelper do
     context 'when using "system" theme' do
       let(:theme) { 'system' }
 
-      it 'returns the mastodon-light and application stylesheets with correct color schemes' do
+      it 'returns the populus-light and populus-dark stylesheets with correct color schemes' do
         expect(html_links.first.attributes.symbolize_keys)
           .to include(
-            href: have_attributes(value: match(/mastodon-light/)),
+            href: have_attributes(value: match(/populus-light/)),
             media: have_attributes(value: 'not all and (prefers-color-scheme: dark)')
           )
         expect(html_links.last.attributes.symbolize_keys)
           .to include(
-            href: have_attributes(value: match(/default/)),
+            href: have_attributes(value: match(/populus-dark/)),
             media: have_attributes(value: '(prefers-color-scheme: dark)')
           )
       end
@@ -69,6 +69,17 @@ RSpec.describe ThemeHelper do
 
     context 'when using mastodon-light theme' do
       let(:theme) { 'mastodon-light' }
+
+      it 'returns the theme stylesheet without color scheme information' do
+        expect(html_theme_colors.first.attributes.symbolize_keys)
+          .to include(
+            content: have_attributes(value: Themes::THEME_COLORS[:light])
+          )
+      end
+    end
+
+    context 'when using populus-light theme' do
+      let(:theme) { 'populus-light' }
 
       it 'returns the theme stylesheet without color scheme information' do
         expect(html_theme_colors.first.attributes.symbolize_keys)

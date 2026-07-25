@@ -1,0 +1,50 @@
+name: ci
+
+# This fork's own CI — replaces the ~20 workflows inherited from upstream
+# mastodon/mastodon (Docker Hub/GHCR releases, Crowdin sync, Chromatic,
+# CodeQL, the full lint/test matrix, ...), most of which fail outright here
+# since they depend on upstream's own secrets and integrations this repo
+# doesn't have. None of that is what this fork needs: it exists to be
+# checked out and built by populus-service-mastodon's own separate pipeline,
+# not to publish or test itself the way upstream does. This workflow keeps
+# only what's actually load-bearing for a patch landing on populus: does the
+# app still boot and precompile. The two composite actions it uses
+# (.github/actions/setup-ruby, .github/actions/setup-javascript) are kept
+# from upstream as-is — self-contained, no external secrets, correctly
+# pinned to this repo's .ruby-version/.nvmrc.
+
+on:
+  push:
+    branches: [populus]
+  pull_request:
+    branches: [populus]
+
+jobs:
+  build-sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-ruby
+
+      - uses: ./.github/actions/setup-javascript
+
+      - name: Zeitwerk eager-load check
+        run: bundle exec rails zeitwerk:check
+        env:
+          RAILS_ENV: production
+          SECRET_KEY_BASE: ci-placeholder
+          OTP_SECRET: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ci-placeholder
+
+      - name: Asset precompile
+        run: bundle exec rails assets:precompile
+        env:
+          RAILS_ENV: production
+          SECRET_KEY_BASE: ci-placeholder
+          OTP_SECRET: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ci-placeholder
+          ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ci-placeholder

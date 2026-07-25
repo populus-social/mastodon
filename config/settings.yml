@@ -12,6 +12,7 @@ defaults: &defaults
   registrations_mode: 'none'
   profile_directory: true
   closed_registrations_message: ''
+  invitation_url: ''
   local_live_feed_access: 'public'
   remote_live_feed_access: 'public'
   local_topic_feed_access: 'public'

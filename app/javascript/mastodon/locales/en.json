@@ -1222,7 +1222,7 @@
   "sign_in_banner.mastodon_is": "A federated social platform that answers to its members, not an algorithm.",
   "sign_in_banner.request_invitation": "Request an invitation",
   "sign_in_banner.sign_in": "Login",
-  "sign_in_banner.sso_redirect": "Login or Register",
+  "sign_in_banner.sso_redirect": "Log in with populus.social",
   "skip_links.hotkey": "<span>Hotkey</span> {hotkey}",
   "skip_links.skip_to_content": "Skip to main content",
   "skip_links.skip_to_navigation": "Skip to main navigation",

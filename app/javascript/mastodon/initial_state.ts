@@ -22,6 +22,7 @@ interface InitialStateMeta {
   locale: string;
   mascot: string | null;
   me?: string;
+  invitation_url: string;
   moved_to_account_id?: string;
   owner?: string;
   profile_directory: boolean;
@@ -102,6 +103,7 @@ export const emojiStyle = getMeta('emoji_style') ?? 'auto';
 export const expandSpoilers = getMeta('expand_spoilers');
 export const forceSingleColumn = !getMeta('advanced_layout');
 export const limitedFederationMode = getMeta('limited_federation_mode');
+export const invitationUrl = getMeta('invitation_url');
 export const mascot = getMeta('mascot');
 export const me = getMeta('me');
 export const movedToAccountId = getMeta('moved_to_account_id');

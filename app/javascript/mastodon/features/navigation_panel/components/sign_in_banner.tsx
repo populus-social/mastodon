@@ -1,22 +1,13 @@
-import { useCallback } from 'react';
-
 import { FormattedMessage } from 'react-intl';
 
-import { openModal } from 'mastodon/actions/modal';
-import { registrationsOpen, sso_redirect } from 'mastodon/initial_state';
-import { useAppDispatch, useAppSelector } from 'mastodon/store';
+import {
+  invitationUrl,
+  registrationsOpen,
+  sso_redirect,
+} from 'mastodon/initial_state';
+import { useAppSelector } from 'mastodon/store';
 
 export const SignInBanner: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  const openClosedRegistrationsModal = useCallback(
-    () =>
-      dispatch(
-        openModal({ modalType: 'CLOSED_REGISTRATIONS', modalProps: {} }),
-      ),
-    [dispatch],
-  );
-
   let signupButton: React.ReactNode;
 
   const signupUrl = useAppSelector(
@@ -68,15 +59,12 @@ export const SignInBanner: React.FC = () => {
     );
   } else {
     signupButton = (
-      <button
-        className='button button--block'
-        onClick={openClosedRegistrationsModal}
-      >
+      <a href={invitationUrl} className='button button--block'>
         <FormattedMessage
           id='sign_in_banner.request_invitation'
           defaultMessage='Request an invitation'
         />
-      </button>
+      </a>
     );
   }
 

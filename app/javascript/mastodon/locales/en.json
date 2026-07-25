@@ -874,7 +874,7 @@
   "sign_in_banner.mastodon_is": "A federated social platform that answers to its members, not an algorithm.",
   "sign_in_banner.request_invitation": "Request an invitation",
   "sign_in_banner.sign_in": "Login",
-  "sign_in_banner.sso_redirect": "Login or Register",
+  "sign_in_banner.sso_redirect": "Log in with populus.social",
   "status.admin_account": "Open moderation interface for @{name}",
   "status.admin_domain": "Open moderation interface for {domain}",
   "status.admin_status": "Open this post in the moderation interface",

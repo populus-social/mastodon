@@ -41,7 +41,7 @@ export const SignInBanner: React.FC = () => {
         >
           <FormattedMessage
             id='sign_in_banner.sso_redirect'
-            defaultMessage='Login or Register'
+            defaultMessage='Log in with populus.social'
           />
         </a>
       </div>

@@ -7,13 +7,17 @@ you in line with the AGPL and our upstream-first development philosophy.
 - **Source code and build instructions:** branch [`populus`](../../tree/populus)
 - **Unmodified upstream mirror:** branch `upstream-main`, tracking
   [mastodon/mastodon](https://github.com/mastodon/mastodon)
-- **Current deployed release:** tag `populus-2026.07.25-2`, based on upstream `v4.5.9`
+- **Current deployed release:** tag `populus-2026.07.25-3`, based on upstream `v4.5.9`
 
 ## Populus Modifications
 
 Development happens on the `populus` branch, released under
 `populus-YYYY.MM.DD[-N]`-style tags. Here's what changed and when:
 
+- **`populus-2026.07.25-3`** — updates the SSO-redirect sign-in button copy
+  to "Log in with populus.social" (this button goes live once the
+  deployment sets `ONE_CLICK_SSO_LOGIN`/`OMNIAUTH_ONLY`, redirecting
+  straight into OIDC instead of showing Mastodon's own sign-in page).
 - **`populus-2026.07.25-2`** — links the invitation button directly to
   `/invitation` instead of opening Mastodon's own sign-up dialog first.
 - **`populus-2026.07.25`** — fixes `populus-dark`'s background/border colors

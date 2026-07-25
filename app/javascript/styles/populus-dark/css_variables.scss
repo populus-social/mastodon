@@ -1,0 +1,32 @@
+// Overrides mastodon/css_variables.scss's darken()/lighten()-derived values.
+// Confirmed live on dev: darken($ui-base-color, 8%) against our near-black
+// bg-base (#0a0908, ~3% lightness) produces a negative HSL lightness value,
+// which browsers clamp to pure black — losing our intended warm-black tone
+// entirely, not just muting it. lighten() for border colors has the mirror
+// problem: barely above 0% lightness, borders are practically invisible.
+// Same root cause mastodon-light's own override exists for, at the opposite
+// end of the lightness range — and the same reason this uses `body` as the
+// selector, not `:root`: application.scss's own mastodon/css_variables.scss
+// sets these on `:root`, loaded after this file via `@use 'application'` in
+// populus-dark.scss. A `:root` rule here would just get overwritten by that
+// later, base rule. `body`'s directly-assigned value always wins over an
+// inherited one from `:root`, regardless of load order — confirmed this is
+// exactly how mastodon-light/css_variables.scss's own override survives the
+// same ordering.
+body {
+  --background-color: #131210;
+  // bg-surface
+  --background-color-tint: rgba(19, 18, 16, 90%);
+  --surface-background-color: #242220;
+  // bg-subtle
+  --surface-variant-background-color: #0a0908;
+  // bg-base
+  --dropdown-background-color: rgba(19, 18, 16, 90%);
+  --dropdown-border-color: #3c3a36;
+  // border
+  --modal-background-color: rgba(19, 18, 16, 70%);
+  --modal-border-color: #3c3a36;
+  --background-border-color: #3c3a36;
+  --surface-border-color: #5a5650;
+  // neutral-600, one step up from border for a visible-but-subtle surface edge
+}

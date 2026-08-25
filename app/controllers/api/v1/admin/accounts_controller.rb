@@ -7,8 +7,8 @@ class Api::V1::Admin::AccountsController < Api::BaseController
 
   LIMIT = 100
 
-  before_action -> { authorize_if_got_token! :'admin:read', :'admin:read:accounts' }, only: [:index, :show]
-  before_action -> { authorize_if_got_token! :'admin:write', :'admin:write:accounts' }, except: [:index, :show]
+  before_action -> { authorize_if_got_token! :'admin:read', :'admin:read:accounts' }, only: [:index, :show, :media_usage]
+  before_action -> { authorize_if_got_token! :'admin:write', :'admin:write:accounts' }, except: [:index, :show, :media_usage]
   before_action :set_accounts, only: :index
   before_action :set_account, except: :index
   before_action :require_local_account!, only: [:enable, :approve, :reject]
@@ -43,6 +43,19 @@ class Api::V1::Admin::AccountsController < Api::BaseController
   def show
     authorize @account, :show?
     render json: @account, serializer: REST::Admin::AccountSerializer
+  end
+
+  # populus.social quota tracking (#1194). Same combined_media_file_size
+  # Arel scope already proven correct and cheap per-account (the admin
+  # account HTML view runs an equivalent sum -- account.media_attachments
+  # .sum('file_file_size') -- on every page load; this adds
+  # thumbnail_file_size too, which that view omits) -- just scoped to one
+  # account instead of the instance-wide/domain-wide measure this admin
+  # API already exposes elsewhere.
+  def media_usage
+    authorize @account, :show?
+    bytes = @account.media_attachments.sum(MediaAttachment.combined_media_file_size)
+    render json: { bytes: bytes }
   end
 
   def enable

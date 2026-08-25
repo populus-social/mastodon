@@ -284,6 +284,12 @@ namespace :api, format: false do
           post :unsuspend
           post :approve
           post :reject
+          # populus.social quota tracking (#1194): per-account media storage,
+          # not exposed by any existing admin endpoint. The instance-wide
+          # equivalent (Admin::Metrics::Measure::InstanceMediaAttachmentsMeasure)
+          # is domain-scoped only; the admin account HTML view computes a
+          # per-account figure but never exposes it via the JSON API.
+          get :media_usage
         end
 
         resource :action, only: [:create], controller: 'account_actions'

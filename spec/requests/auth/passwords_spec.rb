@@ -31,4 +31,27 @@ RSpec.describe 'Auth Passwords' do
       end
     end
   end
+
+  describe 'when OMNIAUTH_ONLY is set' do
+    it 'rejects the forgot-password request path' do
+      ClimateControl.modify OMNIAUTH_ONLY: 'true' do
+        get new_user_password_path
+      end
+
+      expect(response).to redirect_to(new_user_session_path)
+      expect(flash[:alert]).to eq I18n.t('auth.omniauth_only_password_disabled')
+    end
+
+    it 'rejects the reset-confirmation path even with a valid token' do
+      user = Fabricate(:user)
+      token = user.send_reset_password_instructions
+
+      ClimateControl.modify OMNIAUTH_ONLY: 'true' do
+        get edit_user_password_path, params: { reset_password_token: token }
+      end
+
+      expect(response).to redirect_to(new_user_session_path)
+      expect(flash[:alert]).to eq I18n.t('auth.omniauth_only_password_disabled')
+    end
+  end
 end

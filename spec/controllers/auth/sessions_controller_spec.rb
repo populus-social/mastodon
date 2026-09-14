@@ -182,6 +182,18 @@ RSpec.describe Auth::SessionsController do
         end
       end
 
+      context 'when OMNIAUTH_ONLY is set' do
+        it 'rejects password sign-in without authenticating the user' do
+          ClimateControl.modify OMNIAUTH_ONLY: 'true' do
+            post :create, params: { user: { email: user.email, password: user.password } }
+          end
+
+          expect(response).to redirect_to(new_user_session_path)
+          expect(flash[:alert]).to eq I18n.t('auth.omniauth_only_password_disabled')
+          expect(controller.current_user).to be_nil
+        end
+      end
+
       context 'when using an unconfirmed password' do
         before do
           request.headers['Accept-Language'] = accept_language

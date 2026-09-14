@@ -15,6 +15,7 @@ class Auth::SessionsController < Devise::SessionsController
   around_action :preserve_stored_location, only: :destroy, if: :continue_after?
 
   prepend_before_action :check_suspicious!, only: [:create]
+  prepend_before_action :reject_password_auth!, only: [:create]
 
   include Auth::TwoFactorAuthenticationConcern
 
@@ -94,6 +95,12 @@ class Auth::SessionsController < Devise::SessionsController
   def check_suspicious!
     user = find_user
     @login_is_suspicious = suspicious_sign_in?(user) unless user.nil?
+  end
+
+  def reject_password_auth!
+    return unless ENV['OMNIAUTH_ONLY'] == 'true'
+
+    redirect_to new_user_session_path, alert: I18n.t('auth.omniauth_only_password_disabled')
   end
 
   def home_paths(resource)

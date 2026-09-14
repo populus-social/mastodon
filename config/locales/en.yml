@@ -1255,6 +1255,7 @@ en:
     logout: Logout
     migrate_account: Move to a different account
     migrate_account_html: If you wish to redirect this account to a different one, you can <a href="%{path}">configure it here</a>.
+    omniauth_only_password_disabled: Password sign-in is disabled on this server. Sign in with your populus.social account instead.
     or_log_in_with: Or log in with
     progress:
       confirm: Confirm email

@@ -16,13 +16,14 @@ class BackupWorker
     end
   end
 
-  def perform(backup_id)
+  def perform(backup_id, options = {})
     backup = Backup.find(backup_id)
     user   = backup.user
 
     BackupService.new.call(backup)
 
     user.backups.where.not(id: backup.id).destroy_all
-    UserMailer.backup_ready(user, backup).deliver_later
+    # Admin-requested backups (#1984) reach the member through the portal.
+    UserMailer.backup_ready(user, backup).deliver_later unless options['admin_requested']
   end
 end

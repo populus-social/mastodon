@@ -271,6 +271,12 @@ namespace :api, format: false do
           get :media_usage
         end
 
+        # populus.social data download (#1984): request and fetch a member's
+        # own archive without a Mastodon sign-in.
+        resource :backup, only: [:show, :create], controller: 'account_backups' do
+          get :download
+        end
+
         resource :action, only: [:create], controller: 'account_actions'
       end
 

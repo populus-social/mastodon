@@ -25,6 +25,11 @@ module Account::Header
     validates_attachment_content_type :header, content_type: HEADER_IMAGE_MIME_TYPES
     validates_attachment_size :header, less_than: HEADER_LIMIT
     remotable_attachment :header, HEADER_LIMIT, suppress_errors: false
+    validate :header_storage_allowance_not_used_up, if: -> { local? && header_updated_at_changed? && header_file_name.present? }
+  end
+
+  def header_storage_allowance_not_used_up
+    errors.add(:header, Populus::StorageAllowance::ERROR_MESSAGE) if Populus::StorageAllowance.over?(username)
   end
 
   def header_original_url

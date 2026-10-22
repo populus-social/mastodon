@@ -24,6 +24,11 @@ module Account::Avatar
     validates_attachment_content_type :avatar, content_type: AVATAR_IMAGE_MIME_TYPES
     validates_attachment_size :avatar, less_than: AVATAR_LIMIT
     remotable_attachment :avatar, AVATAR_LIMIT, suppress_errors: false
+    validate :avatar_storage_allowance_not_used_up, if: -> { local? && avatar_updated_at_changed? && avatar_file_name.present? }
+  end
+
+  def avatar_storage_allowance_not_used_up
+    errors.add(:avatar, Populus::StorageAllowance::ERROR_MESSAGE) if Populus::StorageAllowance.over?(username)
   end
 
   def avatar_original_url

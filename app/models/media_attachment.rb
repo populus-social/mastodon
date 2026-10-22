@@ -205,6 +205,7 @@ class MediaAttachment < ApplicationRecord
   validates :description, length: { maximum: MAX_DESCRIPTION_LENGTH }, if: :local?
   validates :file, presence: true, if: :local?
   validates :thumbnail, absence: true, if: -> { local? && !audio_or_video? }
+  validate :storage_allowance_not_used_up, on: :create, if: :local?
 
   scope :attached, -> { where.not(status_id: nil).or(where.not(scheduled_status_id: nil)) }
   scope :cached, -> { remote.where.not(file_file_name: nil) }
@@ -219,6 +220,10 @@ class MediaAttachment < ApplicationRecord
 
   def local?
     remote_url.blank?
+  end
+
+  def storage_allowance_not_used_up
+    errors.add(:base, Populus::StorageAllowance::ERROR_MESSAGE) if account&.local? && Populus::StorageAllowance.over?(account.username)
   end
 
   def not_processed?

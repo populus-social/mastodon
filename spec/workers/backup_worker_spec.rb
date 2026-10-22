@@ -28,6 +28,13 @@ RSpec.describe BackupWorker do
         )
     end
 
+    it 'skips the backup_ready mail for an admin-requested backup', :inline_jobs do
+      emails = capture_emails { worker.perform(backup.id, 'admin_requested' => true) }
+
+      expect(service).to have_received(:call).with(backup)
+      expect(emails).to be_empty
+    end
+
     context 'when sidekiq retries are exhausted' do
       it 'destroys the backup' do
         described_class.within_sidekiq_retries_exhausted_block({ 'args' => [backup.id] }) do

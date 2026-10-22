@@ -27,6 +27,11 @@ module Account::Avatar
     remotable_attachment :avatar, AVATAR_LIMIT, suppress_errors: false
 
     validates :avatar_description, length: { maximum: MAX_DESCRIPTION_LENGTH }, if: -> { local? && will_save_change_to_avatar_description? }
+    validate :avatar_storage_allowance_not_used_up, if: -> { local? && avatar_updated_at_changed? && avatar_file_name.present? }
+  end
+
+  def avatar_storage_allowance_not_used_up
+    errors.add(:avatar, Populus::StorageAllowance::ERROR_MESSAGE) if Populus::StorageAllowance.over?(username)
   end
 
   def avatar_original_url

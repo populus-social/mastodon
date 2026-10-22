@@ -27,6 +27,11 @@ module Account::Header
     remotable_attachment :header, HEADER_LIMIT, suppress_errors: false
 
     validates :header_description, length: { maximum: MAX_DESCRIPTION_LENGTH }, if: -> { local? && will_save_change_to_header_description? }
+    validate :header_storage_allowance_not_used_up, if: -> { local? && header_updated_at_changed? && header_file_name.present? }
+  end
+
+  def header_storage_allowance_not_used_up
+    errors.add(:header, Populus::StorageAllowance::ERROR_MESSAGE) if Populus::StorageAllowance.over?(username)
   end
 
   def header_original_url

@@ -323,3 +323,26 @@ RSpec.describe MediaAttachment, :attachment_processing do
     media.file.meta.deep_symbolize_keys
   end
 end
+
+RSpec.describe MediaAttachment, 'storage allowance' do
+  let(:file) { attachment_fixture('attachment.jpg') }
+
+  it 'refuses a local upload when the account is over its allowance' do
+    allow(Populus::StorageAllowance).to receive(:over?).and_return(true)
+    media = Fabricate.build(:media_attachment, account: Fabricate(:account), file: file)
+    expect(media).to_not be_valid
+    expect(media.errors[:base]).to include(Populus::StorageAllowance::ERROR_MESSAGE)
+  end
+
+  it 'accepts a local upload when under' do
+    allow(Populus::StorageAllowance).to receive(:over?).and_return(false)
+    expect(Fabricate.build(:media_attachment, account: Fabricate(:account), file: file)).to be_valid
+  end
+
+  it 'never checks remote media' do
+    allow(Populus::StorageAllowance).to receive(:over?).and_return(true)
+    media = Fabricate.build(:media_attachment, account: Fabricate(:account, domain: 'example.com'), remote_url: 'https://example.com/a.jpg', file: file)
+    expect(media).to be_valid
+    expect(Populus::StorageAllowance).to_not have_received(:over?)
+  end
+end
